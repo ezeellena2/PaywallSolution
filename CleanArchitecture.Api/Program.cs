@@ -89,7 +89,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseLazyLoadingProxies();
     if (databaseProvider == DatabaseProvider.PostgreSQL)
     {
-        options.UseNpgSql(dbConnectionString,
+        options.UseNpgsql(dbConnectionString,
             b => b.MigrationsAssembly("CleanArchitecture.Infrastructure"));
     }
     else
