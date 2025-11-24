@@ -14,6 +14,7 @@ using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -63,7 +64,7 @@ var healthChecksBuilder = builder.Services
 // Agregar health check según el proveedor de base de datos
 if (databaseProvider == DatabaseProvider.PostgreSQL)
 {
-    healthChecksBuilder.AddNpgsql(dbConnectionString!);
+    healthChecksBuilder.AddNpgSql(dbConnectionString!);
 }
 else
 {
@@ -88,7 +89,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseLazyLoadingProxies();
     if (databaseProvider == DatabaseProvider.PostgreSQL)
     {
-        options.UseNpgsql(dbConnectionString,
+        options.UseNpgSql(dbConnectionString,
             b => b.MigrationsAssembly("CleanArchitecture.Infrastructure"));
     }
     else
